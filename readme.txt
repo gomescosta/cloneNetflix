@@ -1,0 +1,1 @@
+Projeto clone da Netflix, feito em ReactJS, javaScript, CSS e Html
