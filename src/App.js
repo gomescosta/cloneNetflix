@@ -3,12 +3,14 @@ import './App.css'
 import tmdb from "./tmdb";
 import MovieRow from "./components/MovieRow";
 import FeatureMovie from "./components/FeatureMovie";
+import Header from "./components/Header"
 
 export default()=>{
 
 
   const [movieList, setMovieList] = useState([]);
   const [featureData, setfeatureData] = useState(null);
+  const [blackHeader,setblackHeader] = useState(false);
 
   useEffect(() => {
     const loadAll = async () =>{
@@ -27,9 +29,26 @@ export default()=>{
     loadAll();
 
   }, []);
+
+  useEffect(() => {
+    const scrollListener = () =>{
+      if(window.scrollY > 10) {
+        setblackHeader(true);
+      } else{
+        setblackHeader(false);
+      }
+    }
+    window.addEventListener('scroll',scrollListener);
+
+    return() => {
+      window.removeEventListener('scroll',scrollListener);
+    }
+  }, []);
   
   return (
     <div className="page">
+
+      <Header black = {blackHeader}/>
 
         {featureData &&
           <FeatureMovie item={featureData}/>
